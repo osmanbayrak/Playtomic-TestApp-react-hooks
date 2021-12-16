@@ -1,12 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 
 export interface collapseState {
-    status: boolean;
+    collapsed: boolean;
+    loading: boolean;
 }
 
 const initialState: collapseState = {
-    status: false
+    collapsed: false,
+    loading: false
 };
 
 export const menuSlice = createSlice({
@@ -15,13 +17,16 @@ export const menuSlice = createSlice({
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
         toggle: (state) => {
-            state.status = !state.status;
+            state.collapsed = !state.collapsed;
         },
+        toggleLoading: (state, action: PayloadAction<boolean>) => {
+            state.loading = action.payload;
+        }
     },
 });
 
-export const { toggle } = menuSlice.actions;
+export const { toggle, toggleLoading } = menuSlice.actions;
 
-export const selectState = (state: RootState) => state.state.status;
+export const selectState = (state: RootState) => state.menu.collapsed;
 
 export default menuSlice.reducer;

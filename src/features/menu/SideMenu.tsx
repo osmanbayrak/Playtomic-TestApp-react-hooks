@@ -15,11 +15,11 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 
 export const SideMenu: any = (props: any) => {
-    const collapsed = useSelector((state: RootState) => state.state.status)
+    const collapsed = useSelector((state: RootState) => state.menu.collapsed)
     const dispatch = useAppDispatch();
     return (
-        <div style={{ width: 200, float: 'left' }}>
-            <Button type="primary" onClick={() => dispatch(toggle())} style={{ marginBottom: 16 }}>
+        <div style={{ width: collapsed ? 80 : 200, float: 'left' }}>
+            <Button type="primary" onClick={() => dispatch(toggle())} style={{ margin: '8px 16px 8px' }}>
                 {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
             </Button>
             <Menu
@@ -28,7 +28,7 @@ export const SideMenu: any = (props: any) => {
                 mode="inline"
                 theme="dark"
                 inlineCollapsed={collapsed}
-                style={{height: '100vh', borderRadius: '5px'}}
+                style={{height: '100vh'}}
             >
                 <Menu.Item key="1" icon={<DashboardOutlined />}>
                     <Link to={'/Dashboard'}> Dashboard </Link>

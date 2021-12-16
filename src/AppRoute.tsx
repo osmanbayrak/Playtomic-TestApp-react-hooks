@@ -7,6 +7,9 @@ import { getAuth  } from "firebase/auth";
 import "antd/dist/antd.css";
 import { Login } from './features/login/Login';
 import { Dashboard } from './features/dashboard/Dashboard';
+import { Spin } from 'antd';
+import { useSelector } from 'react-redux';
+import { RootState } from './app/store';
 
 export const AppRoute: any = (props: any) => {
   const firebaseConfig = {
@@ -18,14 +21,18 @@ export const AppRoute: any = (props: any) => {
     appId: "1:1007166344297:web:30656113fae9349d9b66f8",
     measurementId: "G-YR1L6MQ01L"
   };
+  const spinning = useSelector((state: RootState) => state.menu.loading);
   
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   
   return (
+    <Spin spinning={spinning}>
     <Routes>
-      <Route path="/Login" element={<Login />} />
-      <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Dashboard" element={<Dashboard db={db} />} />
+        <Route path="*" element={<Login />}/>
     </Routes>
+    </Spin>
   );
 }
