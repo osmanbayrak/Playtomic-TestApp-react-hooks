@@ -21,7 +21,7 @@ export const menuSlice = createSlice({
         },
         toggleLoading: (state, action: PayloadAction<boolean>) => {
             state.loading = action.payload;
-        }
+        },
     },
 });
 

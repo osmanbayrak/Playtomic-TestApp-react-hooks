@@ -18,7 +18,7 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 export interface DashboardState {
-    dashboardData: DashboardDataDto
+    dashboardData: DashboardDataDto;
 }
 
 const initialState: DashboardState = {
@@ -55,7 +55,6 @@ export const getDashboardData = (db: any, navigate: any): AppThunk => (
 
         if (dashboardUnmappedData && dashboardUnmappedData[0]) {
             let dashboardData: DashboardDataDto = dashboardUnmappedData[0];
-
             dispatch(setData(dashboardData));
             dispatch(toggleLoading(false));
         } else {
@@ -79,7 +78,7 @@ export const getDashboardData = (db: any, navigate: any): AppThunk => (
             // If user is not authenticated, user redirect to login page
             if (errorCode === 'permission-denied') {
                 navigate('/login');
-            }
+            };
         });
 };
 
