@@ -48,12 +48,12 @@ export const { setData } = settingsSlice.actions;
 export const getSettingsData = (db: any, navigate: any): AppThunk => (
     dispatch
 ) => {
-    const settingsCol = collection(db, 'settings');
+    const settingsCol = collection(db, 'dashboard');
     getDocs(settingsCol).then((settingsSnapshot) => {
         const settingsUnmappedData: SettingsDataDto[] = settingsSnapshot.docs.map(doc => doc.data()) as SettingsDataDto[];
 
-        if (settingsUnmappedData && settingsUnmappedData[0]) {
-            let settingsData: SettingsDataDto = settingsUnmappedData[0];
+        if (settingsUnmappedData && settingsUnmappedData[1]) {
+            let settingsData: SettingsDataDto = settingsUnmappedData[1];
 
             dispatch(setData(settingsData));
             dispatch(toggleLoading(false));

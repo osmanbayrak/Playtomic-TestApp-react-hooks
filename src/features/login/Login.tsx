@@ -8,6 +8,9 @@ import { toggleLoading } from '../menu/MenuSlice';
 import { login } from './loginSlice';
 
 export const Login: any = (props: any) => {
+  React.useEffect(() => {
+    props.reRender();
+  },[]);
   const dispatch = useAppDispatch();
   let navigate = useNavigate();
 

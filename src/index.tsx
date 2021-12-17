@@ -11,7 +11,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
         <BrowserRouter>
-          <AppRoute />
+          <AppRoute startingRoute={'/login'} />
         </BrowserRouter>
     </Provider>
   </React.StrictMode>,

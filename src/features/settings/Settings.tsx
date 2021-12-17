@@ -39,12 +39,12 @@ export const Settings: any = (props: {db: any}) => {
       </div>
       <div className="content" style={{margin: `20px 20px 20px ${collapsed ? '20px' : '220px'}`}} id="content">
         <ul>
-          <li>Hospital Name: {data.hospitalName}</li>
-          <li>Since: {data.buildDate}</li>
-          <li>Location: {data.location}</li>
-          <li>Status: {data.isAvailable}</li>
-          <li>Working Hours: {data.workingHours}</li>
-          <li>Contact Info: {data.contactInfo}</li>
+          <li><span style={{fontWeight: 'bolder'}}>Hospital Name:</span> {data.hospitalName}</li>
+          <li><span style={{fontWeight: 'bolder'}}>Since:</span> {data.buildDate}</li>
+          <li><span style={{fontWeight: 'bolder'}}>Location:</span> {data.location}</li>
+          <li><span style={{fontWeight: 'bolder'}}>Status:</span> {data.isAvailable}</li>
+          <li><span style={{fontWeight: 'bolder'}}>Working Hours:</span> {data.workingHours}</li>
+          <li><span style={{fontWeight: 'bolder'}}>Contact Info:</span> {data.contactInfo}</li>
         </ul>
       </div>
     </div>
