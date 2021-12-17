@@ -1,5 +1,5 @@
-export interface dashboardDataDto {
-    chartData: barChartDto[];
+export interface DashboardDataDto {
+    chartData: BarChartDto[];
     liquid: number;
     doctors: number;
     patients: number;
@@ -7,7 +7,7 @@ export interface dashboardDataDto {
     pharmacusts: number;
 };
 
-export interface barChartDto {
+export interface BarChartDto {
     value: number;
     year: string;
 }

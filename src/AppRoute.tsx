@@ -1,15 +1,16 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
-import { Router } from 'react-router';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-import { getAuth  } from "firebase/auth";
+import { getFirestore } from 'firebase/firestore/lite';
 import "antd/dist/antd.css";
 import { Login } from './features/login/Login';
 import { Dashboard } from './features/dashboard/Dashboard';
 import { Spin } from 'antd';
 import { useSelector } from 'react-redux';
 import { RootState } from './app/store';
+import { Settings } from './features/settings/Settings';
+import { SideMenu } from './features/menu/SideMenu';
+import { NotFound } from './NotFound';
 
 export const AppRoute: any = (props: any) => {
   const firebaseConfig = {
@@ -25,13 +26,17 @@ export const AppRoute: any = (props: any) => {
   
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  
+
+  let currentPath = window.location.pathname;
+
   return (
     <Spin spinning={spinning}>
+    {currentPath === '/Dashboard' || currentPath === '/Settings' ? <SideMenu /> : null}
     <Routes>
         <Route path="/Login" element={<Login />} />
         <Route path="/Dashboard" element={<Dashboard db={db} />} />
-        <Route path="*" element={<Login />}/>
+        <Route path="/Settings" element={<Settings db={db} />} />
+        <Route path="*" element={<NotFound />}/>
     </Routes>
     </Spin>
   );

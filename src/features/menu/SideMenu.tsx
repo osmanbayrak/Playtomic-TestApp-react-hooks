@@ -1,21 +1,20 @@
 import React from 'react';
 import { Menu, Button } from 'antd';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useAppDispatch } from '../../app/hooks';
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
     DashboardOutlined,
     SettingOutlined,
-    LogoutOutlined,
   } from '@ant-design/icons';
 import "antd/dist/antd.css";
 import { Link } from 'react-router-dom';
-import { selectState, toggle } from './MenuSlice';
+import { toggle } from './MenuSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 
 export const SideMenu: any = (props: any) => {
-    const collapsed = useSelector((state: RootState) => state.menu.collapsed)
+    const collapsed = useSelector((state: RootState) => state.menu.collapsed);
     const dispatch = useAppDispatch();
     return (
         <div style={{ width: collapsed ? 80 : 200, float: 'left' }}>
@@ -35,9 +34,6 @@ export const SideMenu: any = (props: any) => {
                 </Menu.Item>
                 <Menu.Item key="2" icon={<SettingOutlined />}>
                     <Link to={'/Settings'}> Settings </Link>
-                </Menu.Item>
-                <Menu.Item key="3" icon={<LogoutOutlined />}>
-                    <Link to={'/Login'}> Logout </Link>
                 </Menu.Item>
             </Menu>
         </div>

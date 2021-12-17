@@ -16,9 +16,6 @@ export const Login: any = (props: any) => {
       dispatch(login({email: values.email, password: values.password}, navigate));
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
   return (
     <div className="Login">
       <Col className='loginBox' xs={{span: 24}} md={{span: 8, offset: 8}}>
@@ -27,7 +24,6 @@ export const Login: any = (props: any) => {
           name="loginForm"
           initialValues={{ remember: true }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item

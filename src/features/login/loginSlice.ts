@@ -34,11 +34,6 @@ const initialState: LoginState = {
     }
 };
 
-// The function below is called a thunk and allows us to perform async logic. It
-// can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
-// will call the thunk with the `dispatch` function as the first argument. Async
-// code can then be executed and other actions can be dispatched. Thunks are
-// typically used to make async requests.
 const auth = getAuth();
 
 export const loginSlice = createSlice({
@@ -53,25 +48,10 @@ export const loginSlice = createSlice({
 
 export const { setLoginInfo } = loginSlice.actions;
 
-export const login = (loginData: loginInputDataDto, navigate: NavigateFunction): AppThunk => (
-    dispatch,
-    getState
-) => {
+export const login = (loginData: loginInputDataDto, navigate: NavigateFunction): AppThunk => (dispatch) => {
+    // JTW token will be kept in browser storage --> indexedDb tab
     (signInWithEmailAndPassword(auth, loginData.email, loginData.password))
         .then((userCredential: any) => {
-            // Set currentuser display name
-            /* const auth = getAuth();
-            if (auth.currentUser) {
-                updateProfile(auth.currentUser, {
-                    displayName: "Test User 2 Name"
-                }).then(() => {
-                    // Profile updated!
-                    // ...
-                }).catch((error) => {
-                    // An error occurred
-                    // ...
-                });
-            } */
             const user = userCredential.user;
             dispatch(setLoginInfo(user));
             navigate('/Dashboard');

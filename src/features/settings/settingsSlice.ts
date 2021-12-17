@@ -3,7 +3,7 @@ import { notification } from 'antd';
 import { initializeApp } from 'firebase/app';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { AppThunk } from '../../app/store';
-import { DashboardDataDto } from '../../Models/DataModels/DashboardDataDto';
+import { SettingsDataDto } from '../../Models/DataModels/SettingsDataDto';
 import { toggleLoading } from '../menu/MenuSlice';
 
 const firebaseConfig = {
@@ -17,44 +17,45 @@ const firebaseConfig = {
 };
 
 initializeApp(firebaseConfig);
-export interface DashboardState {
-    dashboardData: DashboardDataDto
+export interface SettingsState {
+    settingsData: SettingsDataDto
 }
 
-const initialState: DashboardState = {
-    dashboardData: {
-        chartData: [],
-        liquid: 0,
-        doctors: 0,
-        patients: 0,
-        nurses: 0,
-        pharmacusts: 0,
+const initialState: SettingsState = {
+    settingsData: {
+        hospitalName: '',
+        buildDate: '',
+        founders: '',
+        location: '',
+        isAvailable: '',
+        workingHours: '',
+        contactInfo: '',
     }
 };
 
-export const dashboardSlice = createSlice({
-    name: 'dashboard',
+export const settingsSlice = createSlice({
+    name: 'settings',
     initialState,
     reducers: {
-        setData: (state, action: PayloadAction<DashboardDataDto>) => {
-            state.dashboardData = action.payload;
+        setData: (state, action: PayloadAction<SettingsDataDto>) => {
+            state.settingsData = action.payload;
         },
     },
 });
 
-export const { setData } = dashboardSlice.actions;
+export const { setData } = settingsSlice.actions;
 
-export const getDashboardData = (db: any, navigate: any): AppThunk => (
+export const getSettingsData = (db: any, navigate: any): AppThunk => (
     dispatch
 ) => {
-    const dashboardCol = collection(db, 'dashboard');
-    getDocs(dashboardCol).then((dashboardSnapshot) => {
-        const dashboardUnmappedData: DashboardDataDto[] = dashboardSnapshot.docs.map(doc => doc.data()) as DashboardDataDto[];
+    const settingsCol = collection(db, 'settings');
+    getDocs(settingsCol).then((settingsSnapshot) => {
+        const settingsUnmappedData: SettingsDataDto[] = settingsSnapshot.docs.map(doc => doc.data()) as SettingsDataDto[];
 
-        if (dashboardUnmappedData && dashboardUnmappedData[0]) {
-            let dashboardData: DashboardDataDto = dashboardUnmappedData[0];
+        if (settingsUnmappedData && settingsUnmappedData[0]) {
+            let settingsData: SettingsDataDto = settingsUnmappedData[0];
 
-            dispatch(setData(dashboardData));
+            dispatch(setData(settingsData));
             dispatch(toggleLoading(false));
         } else {
             dispatch(toggleLoading(false));
@@ -80,4 +81,4 @@ export const getDashboardData = (db: any, navigate: any): AppThunk => (
         });
 };
 
-export default dashboardSlice.reducer;
+export default settingsSlice.reducer;
