@@ -14,14 +14,19 @@ import { getDashboardData } from './dashboardSlice';
 
 export const Dashboard: any = (props: {db: any}) => {
   const dispatch = useAppDispatch();
+
+  // Get the data from redux store
   const collapsed = useSelector((state: RootState) => state.menu.collapsed);
-  const data = useSelector((state: RootState) => state.dashboard.dashboardData)
+  const data = useSelector((state: RootState) => state.dashboard.dashboardData);
+
+  // Fetch page data when the component mounted
   React.useEffect(() => {
-    getData(db)
+    getData(db);
   }, []);
 
   let navigate = useNavigate();
 
+  // Region Start #Graph Configs
   const chartConfig = {
     data: data.chartData,
     xField: 'value',
@@ -32,7 +37,6 @@ export const Dashboard: any = (props: {db: any}) => {
     },
     height: 180,
   };
-
   const liquidConfig = {
     percent: data.liquid,
     shape: 'rect',
@@ -45,11 +49,15 @@ export const Dashboard: any = (props: {db: any}) => {
     },
     height: 180,
   };
+  // Region End
+
   let db = props.db;
+
+  // Fetch page data by dispatching actions
   const getData = (db: any) => {
     dispatch(toggleLoading(true));
-    dispatch(getDashboardData(db, navigate))
-  }
+    dispatch(getDashboardData(db, navigate));
+  };
   const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : undefined;
   const userName = user ? user.displayName : '';
 
@@ -65,20 +73,20 @@ export const Dashboard: any = (props: {db: any}) => {
       </div>
       <div className="content" style={{margin: `20px 20px 20px ${collapsed ? '20px' : '220px'}`}} id="content">
         <Card bodyStyle={{minWidth: '97px'}} className='dashboardCards'>
-          <p>Doctors</p>
           <p>{data.doctors}</p>
+          <p>Doctors</p>
         </Card>
         <Card bodyStyle={{minWidth: '97px'}} className='dashboardCards'>
-          <p>Nurses</p>
           <p>{data.nurses}</p>
+          <p>Nurses</p>
         </Card>
         <Card bodyStyle={{minWidth: '97px'}} className='dashboardCards'>
-          <p>Patients</p>
           <p>{data.patients}</p>
+          <p>Patients</p>
         </Card>
         <Card bodyStyle={{minWidth: '97px'}} className='dashboardCards'>
-          <p>Pharmacusts</p>
           <p>{data.pharmacusts}</p>
+          <p>Pharmacusts</p>
         </Card>
         <div className='flexBreak'></div>
         <Card className='chartCard'>

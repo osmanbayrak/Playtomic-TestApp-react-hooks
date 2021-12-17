@@ -48,6 +48,8 @@ export const getDashboardData = (db: any, navigate: any): AppThunk => (
     dispatch
 ) => {
     const dashboardCol = collection(db, 'dashboard');
+
+    // API request to get data
     getDocs(dashboardCol).then((dashboardSnapshot) => {
         const dashboardUnmappedData: DashboardDataDto[] = dashboardSnapshot.docs.map(doc => doc.data()) as DashboardDataDto[];
 
@@ -74,6 +76,7 @@ export const getDashboardData = (db: any, navigate: any): AppThunk => (
                 description:
                     errorMessage,
             });
+            // If user is not authenticated, user redirect to login page
             if (errorCode === 'permission-denied') {
                 navigate('/login');
             }

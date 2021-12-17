@@ -11,7 +11,7 @@ export const Login: any = (props: any) => {
   const dispatch = useAppDispatch();
   let navigate = useNavigate();
 
-  const onFinish = (values: {email: string, password: string}) => {
+  const onSubmit = (values: {email: string, password: string}) => {
       dispatch(toggleLoading(true));
       dispatch(login({email: values.email, password: values.password}, navigate));
   };
@@ -23,7 +23,7 @@ export const Login: any = (props: any) => {
         <Form
           name="loginForm"
           initialValues={{ remember: true }}
-          onFinish={onFinish}
+          onFinish={onSubmit}
           autoComplete="off"
         >
           <Form.Item
@@ -46,7 +46,7 @@ export const Login: any = (props: any) => {
 
           <Form.Item>
             <Button className='submitButton' type="primary" htmlType="submit">
-              Login
+              Sign In
             </Button>
           </Form.Item>
         </Form>

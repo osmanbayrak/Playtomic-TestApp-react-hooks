@@ -13,6 +13,8 @@ import { SideMenu } from './features/menu/SideMenu';
 import { NotFound } from './NotFound';
 
 export const AppRoute: any = (props: any) => {
+
+  // Region Start #Inıt Firebase app
   const firebaseConfig = {
     apiKey: "AIzaSyC2xl3mNGQbQ7jh8An2q-3hrlIX65FXc_s",
     authDomain: "playtomic-auth-77056.firebaseapp.com",
@@ -22,11 +24,11 @@ export const AppRoute: any = (props: any) => {
     appId: "1:1007166344297:web:30656113fae9349d9b66f8",
     measurementId: "G-YR1L6MQ01L"
   };
-  const spinning = useSelector((state: RootState) => state.menu.loading);
-  
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+  // Region End #Inıt Firebase app
 
+  const spinning = useSelector((state: RootState) => state.menu.loading);
   let currentPath = window.location.pathname;
 
   return (

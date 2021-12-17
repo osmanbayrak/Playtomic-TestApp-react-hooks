@@ -29,10 +29,10 @@ export const SideMenu: any = (props: any) => {
                 inlineCollapsed={collapsed}
                 style={{height: '100vh'}}
             >
-                <Menu.Item key="1" icon={<DashboardOutlined />}>
+                <Menu.Item key="dashboard" icon={<DashboardOutlined />}>
                     <Link to={'/Dashboard'}> Dashboard </Link>
                 </Menu.Item>
-                <Menu.Item key="2" icon={<SettingOutlined />}>
+                <Menu.Item key="settings" icon={<SettingOutlined />}>
                     <Link to={'/Settings'}> Settings </Link>
                 </Menu.Item>
             </Menu>

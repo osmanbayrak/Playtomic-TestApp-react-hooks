@@ -4,11 +4,11 @@ import { RootState } from '../../app/store';
 export interface collapseState {
     collapsed: boolean;
     loading: boolean;
-}
+};
 
 const initialState: collapseState = {
     collapsed: false,
-    loading: false
+    loading: false,
 };
 
 export const menuSlice = createSlice({
