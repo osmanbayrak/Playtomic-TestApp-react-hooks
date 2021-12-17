@@ -1,6 +1,8 @@
 'npm install' to get project dependencies.
 
-'npm start' to run project (it will be running in localhost:3000 by default)
+'npm start' to run project (it will be running in localhost:3000 by default).
+
+The test user in the app: testuser2@mail.com - password: 123456
 
 This project build with 'React(Hooks) - Redux' architecture.
 
