@@ -1,5 +1,4 @@
 import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
 import menuReducer from '../features/menu/MenuSlice';
 import authReducer from '../features/login/loginSlice';
 import dashboardReducer from '../features/dashboard/dashboardSlice';
@@ -11,7 +10,6 @@ const customizedMiddleware = getDefaultMiddleware({
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     menu: menuReducer,
     auth: authReducer,
     dashboard: dashboardReducer,

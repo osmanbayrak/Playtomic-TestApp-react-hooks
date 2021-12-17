@@ -12,17 +12,9 @@ import { Settings } from './features/settings/Settings';
 import { SideMenu } from './features/menu/SideMenu';
 import { NotFound } from './NotFound';
 
-export const AppRoute: any = (props: {startingRoute: string}) => {
+export const AppRoute: any = () => {
   const [, updateState] = React.useState<any>();
   const forceUpdate = React.useCallback(() => updateState({}), []);
-  let navigate = useNavigate();
-
-  // After npm start set the default route to /login
-  React.useEffect(()=> {
-    if (props.startingRoute && props.startingRoute === '/login') {
-      navigate('/login');
-    }
-  }, []);
 
   // Region Start #Inıt Firebase app
   const firebaseConfig = {
@@ -45,6 +37,7 @@ export const AppRoute: any = (props: {startingRoute: string}) => {
     <Spin spinning={spinning}>
     {currentPath === '/Dashboard' || currentPath === '/Settings' ? <SideMenu /> : null}
     <Routes>
+        <Route path="/" element={<Login reRender={() => {forceUpdate();}} />}/>
         <Route path="/Login" element={<Login reRender={() => {forceUpdate();}} />} />
         <Route path="/Dashboard" element={<Dashboard db={db} />} />
         <Route path="/Settings" element={<Settings db={db} />} />

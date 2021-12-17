@@ -34,6 +34,7 @@ export const SideMenu: any = (props: any) => {
             });
         });
     };
+    const currentPath = window.location.pathname;
 
     return (
         <div style={{ width: collapsed ? 80 : 200, float: 'left' }}>
@@ -41,20 +42,20 @@ export const SideMenu: any = (props: any) => {
                 {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
             </Button>
             <Menu
-                defaultSelectedKeys={['1']}
+                defaultSelectedKeys={[currentPath]}
                 defaultOpenKeys={['sub1']}
                 mode="inline"
                 theme="dark"
                 inlineCollapsed={collapsed}
                 style={{height: '100vh'}}
             >
-                <Menu.Item key="dashboard" icon={<BarChartOutlined />}>
+                <Menu.Item key="/Dashboard" icon={<BarChartOutlined />}>
                     <Link to={'/Dashboard'}> Dashboard </Link>
                 </Menu.Item>
-                <Menu.Item key="settings" icon={<SettingOutlined />}>
+                <Menu.Item key="/Settings" icon={<SettingOutlined />}>
                     <Link to={'/Settings'}> Settings </Link>
                 </Menu.Item>
-                <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={() => {onLogout();}}>
+                <Menu.Item key="/Login" icon={<LogoutOutlined />} onClick={() => {onLogout();}}>
                     <span> Sign Out </span>
                 </Menu.Item>
             </Menu>
