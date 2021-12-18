@@ -6,17 +6,10 @@ import { NavigateFunction } from 'react-router';
 import { AppThunk } from '../../app/store';
 import { loginInputDataDto, userInfoDto } from '../../Models/DataModels/LoginDataDto';
 import { toggleLoading } from '../menu/MenuSlice';
+import { firebaseConfig } from '../../FirebaseConfig';
 
-const firebaseConfig = {
-    apiKey: "AIzaSyC2xl3mNGQbQ7jh8An2q-3hrlIX65FXc_s",
-    authDomain: "playtomic-auth-77056.firebaseapp.com",
-    projectId: "playtomic-auth-77056",
-    storageBucket: "playtomic-auth-77056.appspot.com",
-    messagingSenderId: "1007166344297",
-    appId: "1:1007166344297:web:30656113fae9349d9b66f8",
-    measurementId: "G-YR1L6MQ01L"
-};
 initializeApp(firebaseConfig);
+
 export interface LoginState {
     userInfo: userInfoDto
 }
@@ -54,8 +47,8 @@ export const login = (loginData: loginInputDataDto, navigate: NavigateFunction):
         .then((userCredential: any) => {
             const user = userCredential.user;
             dispatch(setLoginInfo(user));
+            localStorage.setItem('user', JSON.stringify(user));
             navigate('/Dashboard');
-            localStorage.setItem('user', JSON.stringify(user))
             // ...
         })
         .catch((error: any) => {

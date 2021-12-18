@@ -10,20 +10,20 @@ import { UserOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
 import { getSettingsData } from './settingsSlice';
 
-export const Settings: any = (props: {db: any}) => {
+const Settings = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const collapsed = useSelector((state: RootState) => state.menu.collapsed);
-  const data = useSelector((state: RootState) => state.settings.settingsData)
-  React.useEffect(() => {
-    getData(db)
-  }, []);
+  const data = useSelector((state: RootState) => state.settings.settingsData);
 
-  let navigate = useNavigate();
-  let db = props.db;
-  const getData = (db: any) => {
-    dispatch(toggleLoading(true));
-    dispatch(getSettingsData(db, navigate))
-  }
+  React.useEffect(() => {
+    const getData = () => {
+      dispatch(toggleLoading(true));
+      dispatch(getSettingsData(navigate))
+    };
+    getData();
+  }, []);
+  
   const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : undefined;
   const userName = user ? user.displayName : '';
 
@@ -39,14 +39,16 @@ export const Settings: any = (props: {db: any}) => {
       </div>
       <div className="content" style={{margin: `20px 20px 20px ${collapsed ? '20px' : '220px'}`}} id="content">
         <ul>
-          <li><span style={{fontWeight: 'bolder'}}>Hospital Name:</span> {data.hospitalName}</li>
-          <li><span style={{fontWeight: 'bolder'}}>Since:</span> {data.buildDate}</li>
-          <li><span style={{fontWeight: 'bolder'}}>Location:</span> {data.location}</li>
-          <li><span style={{fontWeight: 'bolder'}}>Status:</span> {data.isAvailable}</li>
-          <li><span style={{fontWeight: 'bolder'}}>Working Hours:</span> {data.workingHours}</li>
-          <li><span style={{fontWeight: 'bolder'}}>Contact Info:</span> {data.contactInfo}</li>
+          <li><span className='settingLabel'>Hospital Name:</span> {data.hospitalName}</li>
+          <li><span className='settingLabel'>Since:</span> {data.buildDate}</li>
+          <li><span className='settingLabel'>Location:</span> {data.location}</li>
+          <li><span className='settingLabel'>Status:</span> {data.isAvailable}</li>
+          <li><span className='settingLabel'>Working Hours:</span> {data.workingHours}</li>
+          <li><span className='settingLabel'>Contact Info:</span> {data.contactInfo}</li>
         </ul>
       </div>
     </div>
   );
-}
+};
+
+export default Settings;

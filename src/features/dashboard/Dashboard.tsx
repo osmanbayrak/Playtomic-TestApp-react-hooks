@@ -5,59 +5,31 @@ import "antd/dist/antd.css";
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { Card } from 'antd';
-import { Bar, Liquid } from '@ant-design/charts';
+// import { Bar, Liquid } from '@ant-design/charts';
 import { useAppDispatch } from '../../app/hooks';
 import { toggleLoading } from '../menu/MenuSlice';
 import { UserOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
 import { getDashboardData } from './dashboardSlice';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie } from 'recharts';
 
-export const Dashboard: any = (props: {db: any}) => {
+const Dashboard = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
   // Get the data from redux store
   const collapsed = useSelector((state: RootState) => state.menu.collapsed);
   const data = useSelector((state: RootState) => state.dashboard.dashboardData);
 
   // Fetch page data when the component mounted
   React.useEffect(() => {
-    getData(db);
+    // Fetch page data
+    const getData = () => {
+      dispatch(toggleLoading(true));
+      dispatch(getDashboardData(navigate));
+    };
+    getData();
   }, []);
 
-  let navigate = useNavigate();
-
-  // Region Start #Graph Configs
-  const chartConfig = {
-    data: data.chartData,
-    xField: 'value',
-    yField: 'year',
-    seriesField: 'year',
-    legend: {
-      position: 'top-left',
-    },
-    height: 180,
-  };
-  const liquidConfig = {
-    percent: data.liquid,
-    shape: 'rect',
-    outline: {
-      border: 2,
-      distance: 4,
-    },
-    wave: {
-      length: 128,
-    },
-    height: 180,
-  };
-  // Region End
-
-  let db = props.db;
-
-  // Fetch page data by dispatching actions
-  const getData = (db: any) => {
-    dispatch(toggleLoading(true));
-    dispatch(getDashboardData(db, navigate));
-  };
   const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : undefined;
   const userName = user ? user.displayName : '';
 
@@ -72,6 +44,8 @@ export const Dashboard: any = (props: {db: any}) => {
         </div>
       </div>
       <div className="content" style={{margin: `20px 20px 20px ${collapsed ? '20px' : '220px'}`}} id="content">
+        <div className='contentTitle'>Hospital Staff</div>
+        <div className='flexBreak'></div>
         <Card bodyStyle={{minWidth: '97px'}} className='dashboardCards'>
           <p>{data.doctors}</p>
           <p>Doctors</p>
@@ -91,13 +65,39 @@ export const Dashboard: any = (props: {db: any}) => {
         <div className='flexBreak'></div>
         <Card className='chartCard'>
           Patients Discharged in Years
-          <Bar {...chartConfig as any} />
+          <BarChart
+            width={380}
+            height={200}
+            data={data.chartData}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="Year" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="Discharged" fill="#82ca9d" />
+            <Bar dataKey="Patients" fill="#6e0000" />
+          </BarChart>
         </Card>
         <Card className='chartCard'>
-          Hospital Cccupancy
-          <Liquid {...liquidConfig as any} />
+          Profit Per Month
+          <PieChart margin={{top: 65}} width={380} height={250}>
+            <Pie
+              isAnimationActive={false}
+              dataKey="Profit"
+              startAngle={180}
+              endAngle={0}
+              data={data.pieData}
+              cx="50%"
+              cy="50%"
+              outerRadius={110}
+              fill="#8884d8"
+              label
+            />
+          </PieChart>
         </Card>
       </div>
     </div>
   );
-}
+};
+
+export default Dashboard;

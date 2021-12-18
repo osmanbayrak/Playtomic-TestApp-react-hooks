@@ -3,18 +3,9 @@ import { notification } from 'antd';
 import { initializeApp } from 'firebase/app';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { AppThunk } from '../../app/store';
+import { db, firebaseConfig } from '../../FirebaseConfig';
 import { DashboardDataDto } from '../../Models/DataModels/DashboardDataDto';
 import { toggleLoading } from '../menu/MenuSlice';
-
-const firebaseConfig = {
-    apiKey: "AIzaSyC2xl3mNGQbQ7jh8An2q-3hrlIX65FXc_s",
-    authDomain: "playtomic-auth-77056.firebaseapp.com",
-    projectId: "playtomic-auth-77056",
-    storageBucket: "playtomic-auth-77056.appspot.com",
-    messagingSenderId: "1007166344297",
-    appId: "1:1007166344297:web:30656113fae9349d9b66f8",
-    measurementId: "G-YR1L6MQ01L"
-};
 
 initializeApp(firebaseConfig);
 export interface DashboardState {
@@ -23,8 +14,19 @@ export interface DashboardState {
 
 const initialState: DashboardState = {
     dashboardData: {
-        chartData: [],
-        liquid: 0,
+        chartData: [
+            {
+                Patients: 0,
+                Discharged: 0,
+                Year: '0',
+            }
+        ],
+        pieData: [
+            {
+                Month: '',
+                Profit: 0,
+            }
+        ],
         doctors: 0,
         patients: 0,
         nurses: 0,
@@ -44,7 +46,7 @@ export const dashboardSlice = createSlice({
 
 export const { setData } = dashboardSlice.actions;
 
-export const getDashboardData = (db: any, navigate: any): AppThunk => (
+export const getDashboardData = (navigate: any): AppThunk => (
     dispatch
 ) => {
     const dashboardCol = collection(db, 'dashboard');

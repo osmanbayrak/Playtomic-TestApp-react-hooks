@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { getAuth } from 'firebase/auth';
 
-export const SideMenu: any = (props: any) => {
+const SideMenu = () => {
     const collapsed = useSelector((state: RootState) => state.menu.collapsed);
     const auth = getAuth();
     const dispatch = useAppDispatch();
@@ -60,5 +60,7 @@ export const SideMenu: any = (props: any) => {
                 </Menu.Item>
             </Menu>
         </div>
-    )
-}
+    );
+};
+
+export default SideMenu;

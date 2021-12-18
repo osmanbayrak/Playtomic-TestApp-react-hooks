@@ -6,17 +6,20 @@ import { useNavigate } from 'react-router';
 import { useAppDispatch } from '../../app/hooks';
 import { toggleLoading } from '../menu/MenuSlice';
 import { login } from './loginSlice';
+import { loginInputDataDto } from '../../Models/DataModels/LoginDataDto';
 
-export const Login: any = (props: any) => {
-  React.useEffect(() => {
-    props.reRender();
-  },[]);
+const Login = (props: any) => {
   const dispatch = useAppDispatch();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const [userData, setUserData] = React.useState<loginInputDataDto>({email: '', password: ''});
 
-  const onSubmit = (values: {email: string, password: string}) => {
+  React.useEffect(() => {
+    props.checkSideBar();
+  },[]);
+
+  const onSubmit = () => {
       dispatch(toggleLoading(true));
-      dispatch(login({email: values.email, password: values.password}, navigate));
+      dispatch(login(userData, navigate));
   };
 
   return (
@@ -33,14 +36,14 @@ export const Login: any = (props: any) => {
             name="email"
             rules={[{ required: true, message: 'Please input your e-mail!' }]}
           >
-            <Input placeholder='E-mail' />
+            <Input value={userData.email} onChange={(e) => {setUserData({...userData, email: e.target.value})}} placeholder='E-mail' />
           </Form.Item>
 
           <Form.Item
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
-            <Input.Password placeholder='Password' />
+            <Input.Password value={userData.password} onChange={(e) => {setUserData({...userData, password: e.target.value})}} placeholder='Password' />
           </Form.Item>
 
           <Form.Item name="remember" valuePropName="checked">
@@ -56,4 +59,6 @@ export const Login: any = (props: any) => {
       </Col>
     </div>
   );
-}
+};
+
+export default Login;
