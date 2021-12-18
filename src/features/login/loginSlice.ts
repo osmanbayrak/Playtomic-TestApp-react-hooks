@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { notification } from 'antd';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { NavigateFunction, useNavigate } from 'react-router';
+import { NavigateFunction } from 'react-router';
 import { AppThunk } from '../../app/store';
 import { loginInputDataDto, userInfoDto } from '../../Models/DataModels/LoginDataDto';
 import { toggleLoading } from '../menu/MenuSlice';
@@ -16,7 +16,7 @@ const firebaseConfig = {
     appId: "1:1007166344297:web:30656113fae9349d9b66f8",
     measurementId: "G-YR1L6MQ01L"
 };
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 export interface LoginState {
     userInfo: userInfoDto
 }
